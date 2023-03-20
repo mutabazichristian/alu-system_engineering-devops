@@ -1,0 +1,4 @@
+Host school
+    HostName 54.82.17.196
+    User mutabazi
+    IdentityFile ~/.ssh/schoo
