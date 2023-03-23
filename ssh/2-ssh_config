@@ -1,4 +1,5 @@
-Host school
-    HostName 54.82.17.196
-    User mutabazi
-    IdentityFile ~/.ssh/schoo
+#!/usr/bin/env bash
+# configuring so that we can connect to  the server without the password 
+Host *
+     IndetityFile ~/.ssh/school
+     PasswordAuthentication No
