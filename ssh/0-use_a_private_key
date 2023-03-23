@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 #Script that uses private key in a given folder to connect to server
-ssh -i ~/.ssh/school mutabazi@54.62.17.196
+ssh -i ~/.ssh/school ubuntu@54.62.17.196
