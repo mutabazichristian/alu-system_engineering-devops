@@ -2,8 +2,8 @@
 # bash script to install nginx web server & make the following configurations:
 
 sudo apt-get update
-sudo echo "Holberton School" > /etc/nginx/html/index.html
-sudo printf %s "server {
+echo "Holberton School" | sudo tee /etc/nginx/html/index.html > /dev/null
+sudo bash -c 'printf %s "server {
      listen      80 default_server;
      listen      [::]:80 default_server;
      root        /etc/nginx/html;
@@ -13,7 +13,6 @@ sudo printf %s "server {
         return 301 http://google.com/;
     }
 }
-" > /etc/nginx/sites-available/default
-
+" > /etc/nginx/sites-available/default'
 
 sudo service nginx restart
