@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-#Script that uses private key in a given folder to connect to server
-ssh -i ~/.ssh/school ubuntu@54.82.17.196
