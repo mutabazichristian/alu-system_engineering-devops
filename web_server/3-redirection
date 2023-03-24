@@ -10,13 +10,9 @@ config=\
 	root /var/www/html;
 	index index.html index.htm index.nginx-debian.html;
 	server_name _;
-	location / {
-		try_files \$uri \$uri/ =404;
-        }
+		    
 	location /redirect_me {
-		return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;
-	}
-}
+		return 301 https://www.youtube.com
 "
 sudo chown -R "$USER":"$USER" /var/www/html/index.html
 sudo chown -R "$USER":"$USER" /etc/nginx/sites-available/default
