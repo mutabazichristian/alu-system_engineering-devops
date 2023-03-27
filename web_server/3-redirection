@@ -33,6 +33,9 @@ printf %s "http{
     server {
         listen  80;
         root /var/www/mutabazi;
+        location /redirect_me{
+          return 301 https://www.google.com
+        }
     }
 }
 
