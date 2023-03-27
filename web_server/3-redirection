@@ -10,7 +10,7 @@ mkdir /etc/nginx/mutabazi
 
 touch /etc/nginx/mutabazi/index.html
 
-sudo echo "Mutabazi & Holberton School" > /var/www/html/mutabazi/index.html
+echo "Mutabazi & Holberton School" > sudo tee /var/www/html/mutabazi/index.html
 
 # Create custom 404 error page
 echo "<!DOCTYPE html>
