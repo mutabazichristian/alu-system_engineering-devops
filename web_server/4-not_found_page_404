@@ -1,39 +1,46 @@
 #!/usr/bin/env bash
 # bash script to install nginx web server & make the following configurations:
 
-sudo apt-get update
-sudo apt-get install -y nginx
+service nginx stop
 
-sudo mkdir /etc/nginx/html
+apt-get update
+apt-get install -y nginx
 
-sudo touch /etc/nginx/html/index.html
+mkdir /etc/nginx/mutabazi
 
+touch /etc/nginx/mutabazi/index.html
 
-sudo echo "Holberton School" > /etc/nginx/html/index.html
+echo "Mutabazi & Holberton School" > sudo tee /var/www/html/mutabazi/index.html
 
 # Create custom 404 error page
-sudo echo "<!DOCTYPE html>
+echo "<!DOCTYPE html>
 <html>
 <head>
-  <title>404 Not Found</title>
+  <title>Mutabazi</title>
 </head>
 <body>
   <h1>404 Not Found</h1>
   <p>Ceci n'est pas une page</p>
 </body>
-</html>" | sudo tee /var/www/html/404.html >/dev/null
+</html>" | sudo tee /var/www/mutabazi/404.html >/dev/null
 
-sudo printf %s "server {
-     listen      80 default_server;
-     listen      [::]:80 default_server;
-     root        /etc/nginx/html;
-     index       index.html index.htm;
-     error_page 404 /404.html;
-     location /404 {
-        root /etc/nginx/html;
-        internal;
-     }
+printf %s "http{
+    include mime.types;
+
+    server {
+        listen  80;
+        root /var/www/mutabazi;
+
+        error_page 404 /404.html;
+        location /redirect_me {
+          return 301 https://www.google.com;
+        }
+    }
 }
-" > /etc/nginx/sites-available/default
 
-sudo service nginx restart
+events {
+
+}
+" > /etc/nginx/nginx.conf
+
+service nginx restart
