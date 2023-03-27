@@ -1,21 +1,44 @@
 #!/usr/bin/env bash
-#Configure your Nginx server so that /redirect_me is redirecting to another page
-sudo apt-get update -y
-sudo apt-get install -y nginx
-#sudo ufw allow 'Nginx HTTP'
-config=\
-"server {
-        listen 80 default_server;
-        listen [::]:80 default_server;
-	root /var/www/html;
-	index index.html index.htm index.nginx-debian.html;
-	server_name _;
-		    
-	location /redirect_me {
-		return 301 https://www.youtube.com
-"
-sudo chown -R "$USER":"$USER" /var/www/html/index.html
-sudo chown -R "$USER":"$USER" /etc/nginx/sites-available/default
-echo "Holberton School" > /var/www/html/index.html
-echo "$config" > /etc/nginx/sites-available/default
-sudo service nginx restart
+# bash script to install nginx web server & make the following configurations:
+
+apt-get update
+apt-get install -y nginx
+
+mkdir /etc/nginx/mutabazi
+
+touch /etc/nginx/mutabazi/index.html
+
+
+echo "Mutabazi & Holberton School" > /etc/nginx/mutabazi/index.html
+
+# Create custom 404 error page
+echo "<!DOCTYPE html>
+<html>
+<head>
+  <title>Mutabazi</title>
+</head>
+<body>
+  <h1>404 Not Found</h1>
+  <p>Ceci n'est pas une page</p>
+</body>
+</html>" | sudo tee /var/www/mutabazi/404.html >/dev/null
+
+printf %s "http{
+    types {
+        text/css        css;
+        text/html       html:
+        text/js         js;   
+    }
+
+    server {
+        listen  80;
+        root /var/www/mutabazi;
+    }
+}
+
+events {
+
+}
+" > /etc/nginx/nginx.conf
+
+service nginx restart
