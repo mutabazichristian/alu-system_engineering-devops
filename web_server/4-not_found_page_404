@@ -6,11 +6,19 @@ service nginx stop
 apt-get update
 apt-get install -y nginx
 
-mkdir /etc/nginx/mutabazi
+mkdir -p /var/www/mutabazi
 
-touch /etc/nginx/mutabazi/index.html
+touch /var/www/mutabazi/index.html
 
-echo "Mutabazi & Holberton School" > sudo tee /var/www/html/mutabazi/index.html
+echo "<!DOCTYPE html>
+<html>
+<head>
+  <title>Mutabazi</title>
+</head>
+<body>
+  <p>Mutabazi & Holberton</p>
+</body>
+</html>" | sudo tee /var/www/mutabazi/index.html>/dev/null
 
 # Create custom 404 error page
 echo "<!DOCTYPE html>
@@ -25,16 +33,18 @@ echo "<!DOCTYPE html>
 </html>" | sudo tee /var/www/mutabazi/404.html >/dev/null
 
 printf %s "http{
-    include mime.types;
+        server {
+          listen  80;
+          root /var/www/mutabazi;
+          
+          location /redirect_me {
+            return 301 https://www.google.com;
+          }
 
-    server {
-        listen  80;
-        root /var/www/mutabazi;
-
-        error_page 404 /404.html;
-        location /redirect_me {
-          return 301 https://www.google.com;
-        }
+          error_page 404 /404.html;
+          location = /404.html {
+            internal;
+          }
     }
 }
 
