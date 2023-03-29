@@ -23,7 +23,7 @@ echo "<!DOCTYPE html>
 </body>
 </html>" | sudo tee /var/www/html/404.html >/dev/null
 
-printf %s "https{
+printf %s "http{
   server {
       listen      80 default_server;
       listen      [::]:80 default_server;
