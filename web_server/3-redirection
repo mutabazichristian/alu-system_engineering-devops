@@ -25,8 +25,7 @@ echo "<!DOCTYPE html>
 </html>" | sudo tee /var/www/mutabazi/404.html >/dev/null
 
 printf %s "http{
-    include mime.types;
-
+    
     server {
         listen  80;
         root /var/www/mutabazi;
