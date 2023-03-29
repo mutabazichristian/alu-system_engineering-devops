@@ -6,9 +6,9 @@ service nginx stop
 apt-get update
 apt-get install -y nginx
 
-mkdir /etc/nginx/mutabazi
+mkdir -p /var/www/mutabazi
 
-touch /etc/nginx/mutabazi/index.html
+touch /var/www/mutabazi/index.html
 
 echo "Mutabazi & Holberton School" > sudo tee /var/www/html/mutabazi/index.html
 
