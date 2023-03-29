@@ -32,6 +32,11 @@ printf %s "http{
         root /var/www/mutabazi;
         location /redirect_me {
           return 301 https://www.google.com;
+        
+        error_page 404 /404.html;
+        location = /404.html {
+          internal;
+        }
         }
     }
 }
