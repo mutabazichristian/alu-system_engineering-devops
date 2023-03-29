@@ -25,17 +25,20 @@ echo "<!DOCTYPE html>
 </html>" | sudo tee /var/www/mutabazi/404.html >/dev/null
 
 printf %s "http{
-    
-    server {
-        listen  80;
-        root /var/www/mutabazi;
-        location /redirect_me {
-          return 301 https://www.google.com;
-        }
-        error_page 404 /404.html;
-        location = /404.html {
-          internal;
-        }
+        server {
+          listen  80;
+          root /var/www/mutabazi;
+
+          
+
+          location /redirect_me {
+            return 301 https://www.google.com;
+          }
+
+          error_page 404 /404.html;
+          location = /404.html {
+            internal;
+          }
     }
 }
 
