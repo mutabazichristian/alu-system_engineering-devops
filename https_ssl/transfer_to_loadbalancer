@@ -7,7 +7,7 @@ if [$# -lt 4]; then
 fi
 #params an shit
 file="$1"
-ip=54.227.64.217
+ip=34.229.20.132
 username=ubuntu
 path_to_key=/home/codespace/.ssh/id_rsa
 
