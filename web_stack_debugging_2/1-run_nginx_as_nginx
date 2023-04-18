@@ -7,17 +7,9 @@ sudo systemctl stop nginx
 sudo chown -R nginx:nginx /var/log/nginx
 sudo chown -R nginx:nginx /var/lib/nginx
 
-# Update nginx configuration file to run as nginx user
-sudo sed -i 's/user\s\+.*;/user nginx nginx;/' /etc/nginx/nginx.conf
-
-# Update nginx default site configuration to listen on port 8080 and all IPs
-sudo sed -i 's/listen\s\+80\s*;/listen 8080 default_server;\n\tlisten [::]:8080 default_server;/' /etc/nginx/sites-available/default
-
-# Start nginx
-sudo systemctl start nginx
-
-# Verify that nginx is running as nginx user
-ps aux | grep nginx | grep -q "nginx: nginx" || (echo "Error: nginx is not running as nginx user"; exit 1)
-
-# Verify that nginx is listening on port 8080
-sudo netstat -tuln | grep -q "8080.*nginx" || (echo "Error: nginx is not listening on port 8080"; exit 1)
+sudo chmod -R 755 /etc/nginx/
+sudo pkill -9 apache2
+sudo sed -i ' s/8080/8081/g ' /etc/apache2/ports.conf
+redémarrage du service sudo apache2
+su nginx -c " sed -i 's/80/8080/g' /etc/nginx/sites-enabled/default "
+redémarrage du service nginx su nginx
