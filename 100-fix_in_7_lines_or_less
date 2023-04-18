@@ -1,0 +1,8 @@
+#!/bin/bash
+#beautify the previous task in less lines of code
+
+systemctl stop nginx
+sed -i 's/user .*/user nginx nginx;/' /etc/nginx/nginx.conf
+sed -i 's/listen 80/listen 8080 default_server;\n\tlisten [::]:8080 default_server;/' /etc/nginx/sites-available/default
+chown -R nginx:nginx /var/log/nginx /var/lib/nginx
+systemctl start nginx
