@@ -2,14 +2,18 @@
 #script to make server run commands as nginx user
 sudo service nginx stop
 
+#Stop nginx if it's already running
+sudo systemctl stop nginx
+
+# Change user and group ownership of nginx directories
 sudo chown -R nginx:nginx /var/log/nginx
 sudo chown -R nginx:nginx /var/lib/nginx
 
 # Update nginx configuration file to run as nginx user
-sudo sed -i 's/user\s\+nginx;/user nginx nginx;/' /etc/nginx/nginx.conf
+sudo sed -i 's/user\s\+.*;/user nginx nginx;/' /etc/nginx/nginx.conf
 
 # Update nginx default site configuration to listen on port 8080 and all IPs
-sudo sed -i 's/listen\s\+80;/listen 8080 default_server;\n\tlisten [::]:8080 default_server;/' /etc/nginx/sites-available/default
+sudo sed -i 's/listen\s\+80\s*;/listen 8080 default_server;\n\tlisten [::]:8080 default_server;/' /etc/nginx/sites-available/default
 
 # Start nginx
-sudo service nginx start
+sudo systemctl start nginx
