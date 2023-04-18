@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 #script to make server run commands as nginx user
-sudo service nginx stop
-
-#Stop nginx if it's already running
+# Stop nginx if it's already running
 sudo systemctl stop nginx
 
 # Change user and group ownership of nginx directories
@@ -17,3 +15,9 @@ sudo sed -i 's/listen\s\+80\s*;/listen 8080 default_server;\n\tlisten [::]:8080 
 
 # Start nginx
 sudo systemctl start nginx
+
+# Verify that nginx is running as nginx user
+ps aux | grep nginx | grep -q "nginx: nginx" || (echo "Error: nginx is not running as nginx user"; exit 1)
+
+# Verify that nginx is listening on port 8080
+sudo netstat -tuln | grep -q "8080.*nginx" || (echo "Error: nginx is not listening on port 8080"; exit 1)
